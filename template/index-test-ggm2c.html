@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Gvbvdxx Game Maker 2</title>
+		<link rel="icon" href="static/favicon.png?n=1">
+	</head>
+	
+	<body>
+		<script>
+			function fakeAsyncPromise () {
+				//Preview what the loading part will look like.
+				return new Promise((accept) => {
+					setTimeout(accept, 500); //Half a second.
+				})
+			}
+			
+			window.ggm2c = {
+				enabled: true,
+				project: {
+					uri: "static/ggm2c/project-test.gb2",
+					shared: true
+				},
+				user: {
+					name: "GGM2Coder",
+					pfp: "static/favicon.png"
+				},
+				buttons: {
+					homeSupported: true,
+					home: function () {
+						console.log("User clicked \"Home\"");
+					},
+					
+					messagesSupported: true,
+					messages: function () {
+						console.log("User clicked \"Messages\"");
+					},
+					
+					newGame: function () {
+						console.log("User clicked \"New\"");
+					},
+					saveNow: async function (data) {
+						console.log("User clicked \"Save Now\"", data);
+						await fakeAsyncPromise();
+					},
+					share: async function (state) {
+						console.log("User clicked \"Share\"", state);
+						await fakeAsyncPromise();
+					}
+				}
+			};
+		</script>
+		<script src="main.js?n=1"></script>
+	</body>
+</html>
