@@ -218,7 +218,7 @@ Blockly.JavaScript['gvbvdxx_baudio_setrate'] = function(block) {
   var variable_audvar = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('audvar'), Blockly.Variables.NAME_TYPE);
   var value_name = Blockly.JavaScript.valueToCode(block, 'NAME', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
-  var code = variable_audvar+'.playbackRate = ('+value_name+');\n';
+  var code = variable_audvar+'.setPlaybackRate('+value_name+');\n';
   return code;
 };
 Blockly.JavaScript['gvbvdxx_baudio_create'] = function(block) {
