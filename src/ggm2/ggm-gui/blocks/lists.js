@@ -127,7 +127,7 @@ Blockly.defineBlocksWithJsonArray([
 },
 {
   "type": "gvbvdxx_list_split_string_value",
-  "message0": "Split Text %1 and split it with %2 into an list",
+  "message0": "Split Text %1 and split it with %2 into a list",
   "args0": [
     {
       "type": "input_value",
@@ -142,6 +142,72 @@ Blockly.defineBlocksWithJsonArray([
   "output": "Number",
   "colour": BlockColors["lists"],
   "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "gvbvdxx_lists_replace_item",
+  "message0": "Replace item number %1 in list %2 %3 with %4",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "number",
+      "check": "Number"
+    },
+    {
+      "type": "field_variable",
+      "name": "List",
+      "variable": "list"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "replacement_Item"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors["lists"],
+  "tooltip": "Replaces the specified item number with the provided item",
+  "helpUrl": ""
+},
+{
+  "type": "gvbvdxx_lists_item_exists",
+  "message0": "Item %1 in list %2 exists?",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "item"
+    },
+    {
+      "type": "field_variable",
+      "name": "List",
+      "variable": "list"
+    }
+  ],
+  "output": "Boolean",
+  "colour": BlockColors["lists"],
+  "tooltip": "Checks to see if a item exists in a list, this is case sensitive.",
+  "helpUrl": ""
+},
+{
+  "type": "gvbvdxx_lists_get_item_number",
+  "message0": "Get item number of %1 in list %2",
+  "args0": [
+    {
+      "type": "input_value",
+      "name": "item"
+    },
+    {
+      "type": "field_variable",
+      "name": "List",
+      "variable": "list"
+    }
+  ],
+  "output": "Number",
+  "colour": BlockColors["lists"],
+  "tooltip": "Finds the item number of the specified item in a list, this is case sensitive. When no item is found, -1 will be returned.",
   "helpUrl": ""
 }
 ]);
@@ -199,6 +265,30 @@ Blockly.JavaScript['gvbvdxx_list_split_string_value'] = function(block) {
   var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
   // TODO: Assemble JavaScript into code variable.
   var code = `(${value_list}).split(${value_value})`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+Blockly.JavaScript['gvbvdxx_lists_replace_item'] = function(block) {
+  var value_number = Blockly.JavaScript.valueToCode(block, 'number', Blockly.JavaScript.ORDER_ATOMIC);
+  var variable_list = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('List'), Blockly.Variables.NAME_TYPE);
+  var value_replacement_item = Blockly.JavaScript.valueToCode(block, 'replacement_Item', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `(${variable_list})[${value_number}] = (${value_replacement_item});`+"\n";
+  return code;
+};
+Blockly.JavaScript['gvbvdxx_lists_item_exists'] = function(block) {
+  var value_item = Blockly.JavaScript.valueToCode(block, 'item', Blockly.JavaScript.ORDER_ATOMIC);
+  var variable_list = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('List'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `(${variable_list}.indexOf(${value_item}) > -1)`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
+};
+Blockly.JavaScript['gvbvdxx_lists_get_item_number'] = function(block) {
+  var value_item = Blockly.JavaScript.valueToCode(block, 'item', Blockly.JavaScript.ORDER_ATOMIC);
+  var variable_list = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('List'), Blockly.Variables.NAME_TYPE);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `${variable_list}.indexOf(${value_item})`;
   // TODO: Change ORDER_NONE to the correct strength.
   return [code, Blockly.JavaScript.ORDER_NONE];
 };

@@ -493,10 +493,16 @@ var toolboxXML = `
 			${blockSeparator}
 			<block type="gvbvdxx_files_makeimage">
             <value name="dataURI">
-                <block type="gvbvdxx_files_dataurl"></block>
+                <shaddow type="gvbvdxx_files_dataurl"></shaddow>
             </value>
 			</block>
-			<block type="gvbvdxx_files_data_input"></block>
+			<block type="gvbvdxx_files_data_input">
+				<value name="list">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">item0,item1</field>
+					</shadow>
+				</value>
+			</block>
 			<block type="gvbvdxx_files_localstorageput"></block>
 			<block type="gvbvdxx_files_localstorageget"></block>
 		</category>
@@ -506,16 +512,75 @@ var toolboxXML = `
 		<category colour="${BlockColors["lists"]}" name="Lists">
 			<block type="gvbvdxx_lists_new"></block>
 			<block type="gvbvdxx_lists_new_text"></block>
-			<block type="gvbvdxx_list_split_string_value"></block>
-			<block type="gvbvdxx_lists_item_number"></block>
-			<block type="gvbvdxx_lists_add"></block>
-			<block type="gvbvdxx_lists_delete_number"></block>
+			<block type="gvbvdxx_list_split_string_value">
+				<value name="list">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">item0,item1</field>
+					</shadow>
+				</value>
+				<value name="value">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">,</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_lists_item_number">
+				<value name="NAME">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">0</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_lists_add">
+				<value name="NAME">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">thing</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_lists_delete_number">
+				<value name="NAME">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">0</field>
+					</shadow>
+				</value>
+			</block>
 			<block type="gvbvdxx_lists_length"></block>
 			<block type="gvbvdxx_lists_delete_all"></block>
+			<block type="gvbvdxx_lists_replace_item">
+				<value name="number">
+					<shadow type="gvbvdxx_operators_number"></shadow>
+				</value>
+				<value name="replacement_Item">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">thing</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_lists_item_exists">
+				<value name="item">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">thing</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_lists_get_item_number">
+				<value name="item">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">thing</field>
+					</shadow>
+				</value>
+			</block>
 		</category>
 		<sep></sep>
 		<category colour="${BlockColors["logging"]}" name="Loging">
-			<block type="gvbvdxx_loging_log"></block>
+			<block type="gvbvdxx_loging_log">
+				<value name="NAME">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">Hello World!</field>
+					</shadow>
+				</value>
+			</block>
 			<block type="gvbvdxx_loging_clear"></block>
 		</category>
 		<category colour="${BlockColors["other"]}" name="Other">
@@ -532,10 +597,37 @@ var toolboxXML = `
 
 		<category colour="${BlockColors["display"]}" name="Monitors">
 			<block type="gvbvdxx_game_var_make"></block>
-			<block type="gvbvdxx_game_var_pos"></block>
-			<block type="gvbvdxx_game_var_set"></block>
-			<block type="gvbvdxx_game_var_set_text"></block>
-			<block type="gvbvdxx_game_var_visible"></block>
+			<block type="gvbvdxx_game_var_pos">
+				<value name="x">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">0</field>
+					</shadow>
+				</value>
+				<value name="y">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">0</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_game_var_set">
+				<value name="name">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">Points</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_game_var_set_text">
+				<value name="name">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">5</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_game_var_visible">
+				<value name="name">
+					<shadow type="gvbvdxx_operators_true_false"></shadow>
+				</value>
+			</block>
 		</category>
 
 		<category colour="${BlockColors["async"]}" name="Async">

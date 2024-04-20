@@ -1,7 +1,7 @@
 Blockly.defineBlocksWithJsonArray([
 {
   "type": "gvbvdxx_game_var_pos",
-  "message0": "set %1 x: %2 y: %3",
+  "message0": "Set monitor %1 position to x: %2 y: %3",
   "args0": [
     {
       "type": "field_variable",
@@ -37,7 +37,7 @@ Blockly.defineBlocksWithJsonArray([
 },
 {
   "type": "gvbvdxx_game_var_set",
-  "message0": "Set monitor name to %1 %2",
+  "message0": "Set monitor %1 name to %2",
   "args0": [
     {
       "type": "field_variable",
@@ -59,7 +59,7 @@ Blockly.defineBlocksWithJsonArray([
 },
 {
   "type": "gvbvdxx_game_var_set_text",
-  "message0": "Set monitor text to %1 %2",
+  "message0": "Set monitor %1 text to %2",
   "args0": [
     {
       "type": "field_variable",
@@ -80,7 +80,7 @@ Blockly.defineBlocksWithJsonArray([
 },
 {
   "type": "gvbvdxx_game_var_visible",
-  "message0": "Set monitor visiblity to %1 %2",
+  "message0": "Set monitor %1 visiblity to %2",
   "args0": [
     {
       "type": "field_variable",
