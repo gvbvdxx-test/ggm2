@@ -231,6 +231,11 @@ window.vm = {
                 try {
                     this.hideSprite(spr); //ensure there is only one sprite when showing again.
                     vm.project.sprites.push(spr);
+					var counter = 0;
+					for (var spr2 of vm.project.sprites) {
+						spr2.id = counter;
+						counter += 1;
+					}
                 } catch (e) {
                     vm.console.error("Error in script:" + e);
                 }
@@ -241,6 +246,12 @@ window.vm = {
                     if (i > -1) {
                         vm.project.sprites.splice(i, 1); // 2nd parameter means remove one item only
                     }
+					
+					var counter = 0;
+					for (var spr2 of vm.project.sprites) {
+						spr2.id = counter;
+						counter += 1;
+					}
                 } catch (e) {}
             },
             cos: function (number) {
