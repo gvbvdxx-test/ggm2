@@ -17,6 +17,7 @@ function addToConsole(msg, preElm) {
     var consoleElements = elements.createElementsFromJSON([
                 preElm, {
                     element: "span",
+					className: "enableSelect",
                     textContent: parsedMsg.toString()
                 }, {
                     element: "br"
@@ -30,6 +31,7 @@ vm.console.log = function (text) {
     addToConsole(text, {
         element: "span",
         textContent: "[Project]: ",
+		className: "enableSelect",
 		style:{
 			fontWeight: "bold"
 		}
@@ -40,6 +42,7 @@ vm.console.error = function (text) {
     addToConsole(text.toString(), {
         element: "span",
         textContent: "[ERROR]: ",
+		className: "enableSelect",
         style: {
             color: "red",
             fontWeight: "bold"

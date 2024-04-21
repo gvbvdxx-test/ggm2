@@ -136,10 +136,6 @@ gui.loadScript("left-tabs.js");
 
 gui.loadScript("fullscreen-handler.js");
 
-//make it so the user cannot select everything.
-
-gui.loadScript("selection-fix.js");
-
 //make discription easier to edit.
 
 gui.loadScript("discriptiontools/index.js");

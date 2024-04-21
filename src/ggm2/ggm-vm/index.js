@@ -96,7 +96,14 @@ window.vm = {
         timer: 0,
         timeouts: [],
         block: {
-            cloudVarSet: function (name, value) {
+            convertURLToText: function (url) {
+                try {
+                    return atob(url.split(",").pop());
+                } catch (e) {
+                    vm.console.error("Error in script:" + e);
+                }
+            },
+			cloudVarSet: function (name, value) {
                 try {
                     if (vm.cloudAPI) {
                         vm.cloudAPI.updateVariable(name, value);
@@ -124,6 +131,37 @@ window.vm = {
                     setTimeout(a, 1);
                 })
             },
+			saveFileFromText: function (name,type,contents) {
+				var myFile = new Blob([contents], {
+					type: type
+				});
+				
+				var objectURL = window.URL || window.webkitURL;
+				var a = document.createElement("a");
+
+				a.href = objectURL.createObjectURL(myFile);
+				a.download = name;
+				a.click();
+			},
+			loadFileAsText: function (extensions,callback) {
+				var objectURL = window.URL || window.webkitURL;
+				var input = document.createElement("input");
+				input.type = "file";
+				input.accept = extensions;
+				input.click();
+				
+				input.onchange = function () {
+					if (input.files.length > 0) {
+						var file = input.files[0];
+						var reader = new FileReader();
+						reader.onload = function () {
+							callback(reader.result);
+							input.remove();
+						};
+						reader.readAsText(file);
+					}
+				};
+			},
             waitAsync: function (s) {
                 return new Promise((a) => {
                     vm.project.timeouts.push(setTimeout(a, s * 1000));
@@ -161,7 +199,8 @@ window.vm = {
             makeSprite: function () {
                 try {
                     vm.idcounter += 1;
-                    var spr = new Sprite(vm.idcounter);
+					var realID = vm.project.sprites.length-1;
+                    var spr = new Sprite(realID);
                     this.showSprite(spr);
                     return spr;
                     try {

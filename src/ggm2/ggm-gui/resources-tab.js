@@ -9,13 +9,16 @@ var resoureupload = elements.getGPId('resourceupload');
 var files = elements.getGPId('files');
 window.fileResources = [];
 window.fileResourcesArray = [];
-resoureupload.accept = "audio/*,image/*";
+resoureupload.accept = "audio/*,image/*,text/plain,application/json,text/javascript";
 window.clearResources = function clearResources() {
     files.innerHTML = "";
     window.fileResources = [];
     window.fileResourcesArray = [];
 };
-var supportedTypes = ["image","audio"];
+var supportedTypes = ["image","audio","text","application"];
+function convertURLToText(url) {
+	return atob(url.split(",").pop());
+}
 function createElmPreview(data, name, type) {
 	var out = {};
 	
@@ -35,6 +38,12 @@ function createElmPreview(data, name, type) {
 		out.element = "audio";
 		out.src = data;
 		out.controls = true;
+	}
+	if (type == "text" || type == "application") {
+		out.element = "textarea";
+		out.disabled = true;
+		out.className = "filetextbox";
+		out.value = convertURLToText(data);
 	}
 	
 	return out;
@@ -161,6 +170,11 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 				gid:"tmp-fileDeleteButton",
 				textContent:"Delete",
 				className:"file_buttonBlue",
+			} ,{
+				element:"button",
+				gid:"tmp-fileExportButton",
+				textContent:"Export",
+				className:"file_buttonBlue",
 			},
 			createElmPreview(data, name, type),
 			{element:"br"}
@@ -173,13 +187,26 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 		var input = elements.getGPId("tmp-fileInput");
 		
 		var deleteButton = elements.getGPId("tmp-fileDeleteButton");
+		var exportButton = elements.getGPId("tmp-fileExportButton");
 		
 		function deleteFile () {
 			removeFileFromData(updatedName);
 			div.remove();
 		}
-		
 		deleteButton.addEventListener("click", deleteFile);
+		
+		async function exportFile () {
+			var request = await fetch(data);
+			var blob = await request.blob();
+			var url = URL.createObjectURL(blob);
+			
+			var a = document.createElement("a");
+			a.href = url;
+			a.download = updatedName;
+			
+			a.click();
+		}
+		exportButton.addEventListener("click", exportFile);
 		
 		function updateName(ignoreDialog) {
 			if (input.value.length < 1) {
@@ -238,7 +265,7 @@ resoureupload.onchange = function () {
                 resoureupload.value = "";
             }
             if (file.size > 7000000 && false) {
-				console.log("Prevented a server overload from happening.");
+				console.log("Prevented a possible server overload from happening.");
 				Blockly.alert("This file is too big!");
             } else {
                 reader.readAsDataURL(file);

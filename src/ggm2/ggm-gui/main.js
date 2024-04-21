@@ -48,3 +48,6 @@ doScriptAdd("ggm-gui/jszip.min.js");
 //hide the loading screen
 var loadingScreen = elements.getGPId("loadingscreen");
 loadingScreen.hidden = true;
+
+//make it so the user cannot select everything.
+doScriptAdd("ggm-gui/selection-fix.js");

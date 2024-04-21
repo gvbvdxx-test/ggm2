@@ -496,15 +496,20 @@ var toolboxXML = `
                 <shaddow type="gvbvdxx_files_dataurl"></shaddow>
             </value>
 			</block>
-			<block type="gvbvdxx_files_data_input">
-				<value name="list">
-					<shadow type="gvbvdxx_operators_text">
-						<field name="text">item0,item1</field>
-					</shadow>
-				</value>
+			<block type="gvbvdxx_files_data_url_to_text">
+            <value name="name">
+                <shaddow type="gvbvdxx_files_dataurl"></shaddow>
+            </value>
 			</block>
+			<block type="gvbvdxx_files_data_input">
+			</block>
+			${blockSeparator}
 			<block type="gvbvdxx_files_localstorageput"></block>
 			<block type="gvbvdxx_files_localstorageget"></block>
+			${blockSeparator}
+			<block type="gvbvdxx_files_filetypes"></block>
+			<block type="gvbvdxx_files_download"></block>
+			<block type="gvbvdxx_files_upload"></block>
 		</category>
 		<sep></sep>
 		<category name="Variables" custom="VARIABLE" colour="#CE3175"></category>

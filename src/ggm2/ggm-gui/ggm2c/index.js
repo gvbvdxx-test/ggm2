@@ -5,8 +5,9 @@ var elements = require("elements");
 
 var div = elements.getGPId("ggm2c");
 var ggm2c = window.ggm2c;
+window.ggm2c = undefined;
 
-console.log("GGM2 Community mode enabled.");
+console.log("GGM2 Community mode initialized.");
 
 /////////////////////////////////////////////////////////
 
@@ -289,5 +290,36 @@ if (mail) {
 		
 	}
 })();
+
+/////////////////////////////////////////////////////////
+
+//Only show the player if gamePlayerOnly is true.
+if (ggm2c.gamePlayerOnly) {
+	//Hide any ui elements that we don't need to show.
+	var leftPane = elements.getGPId("leftPane");
+	var menuBar = elements.getGPId("main_menu");
+	
+	var gameArea = elements.getGPId("gameArea");
+	var toggleFullscreenButton = elements.getGPId("toggleFullscreenButton");
+	var gameScreen = elements.getGPId("gameScreen");
+	
+	leftPane.hidden = true;
+	menuBar.style.display = "none";
+	
+	toggleFullscreenButton.hidden = true;
+	gameArea.className = "fullscreenGame";
+	
+	//Hide the blockly workspace.
+	workspace.setVisible(false);
+	
+	//Use the click to start screen.
+	var clickToStartProject = elements.getGPId("clickToStartProject");
+	
+	clickToStartProject.onclick = function () {
+		clickToStartProject.style.display = "none";
+		vm.start();
+	};
+	clickToStartProject.style.display = "block";
+}
 
 /////////////////////////////////////////////////////////

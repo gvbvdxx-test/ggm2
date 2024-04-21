@@ -24,6 +24,12 @@ body {
 	background-color:#edf2ff;
 	font-family:Arial;
 }
+.disableSelect {
+    user-select: none;
+}
+.enableSelect {
+    user-select: text;
+}
 .playerButton {
 	min-width:32px;
 	height:32px;
@@ -286,6 +292,18 @@ padding: 10px;
 	overflow:auto;
 	font-family:arial;
 }
+.filetextbox {
+	background-color:white;
+	border:none;
+	border-style:solid;
+	border-color:#adb5bd;
+	border-width:1.5px;
+	outline:none;
+	width:80px;
+	height:30px;
+	overflow:auto;
+	font-family:arial;
+}
 .gid_console {
 	width:100%;
 	height:93%;
@@ -498,4 +516,20 @@ padding: 10px;
 .ggm2c_DropDown_Button:hover {
 	cursor: pointer;
 	background: #364fc7;
+}
+
+.ggm2c_click_to_start { 
+	background: black;
+	position: absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	color:white;
+	font-weight:bold;
+	cursor: pointer;
+	transition: 0.2s;
+}
+.ggm2c_click_to_start:hover { 
+	scale: 1.05;
 }

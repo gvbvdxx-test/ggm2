@@ -22,11 +22,10 @@ elements.getGPId("gameScreen").onmousedown = function (event) {
     vm.setMouseDown(true);
 }
 document.body.onmouseup = function (event) {
-    event.preventDefault();
     vm.setMouseDown(false);
 }
 setInterval(function () {
-    elements.getGPId("testPos").innerHTML = vm.project.mouseX + "," + vm.project.mouseY + ", down:" + vm.project.mouseDown;
+    elements.getGPId("testPos").innerHTML = vm.project.mouseX + "," + vm.project.mouseY + " Mouse down:" + vm.project.mouseDown;
 }, 1);
 document.body.onkeydown = function (event) {
     vm.simulateKey({
@@ -41,9 +40,9 @@ document.body.onkeyup = function (event) {
         down: false
     });
 };
-//Yes! finaly touch screen support!
+//Yes! Finally, touch screen support!
 try {
-    //mouse up and mouse down for touch screen
+    //Mouse up and mouse down for touch screen
     elements.getGPId("gameScreen").addEventListener("touchstart", (event) => { //touch started = mouse down
         vm.setMouseDown(true);
         //also move the mouse after setting mouse down.
@@ -65,7 +64,7 @@ try {
         event.preventDefault();
     });
     //mouse movement for touch screen
-    elements.getGPId("gameScreen").addEventListener("touchmove", (event) => { //drag/touch
+    elements.getGPId("gameScreen").addEventListener("touchmove", (event) => { //dragging touch on screen.
         //also move the mouse after setting mouse down.
         var pos = getMousePos(elements.getGPId("gameScreen"), {
             clientX: event.touches[event.touches.length - 1].clientX,

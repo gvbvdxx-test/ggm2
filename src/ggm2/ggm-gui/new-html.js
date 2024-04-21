@@ -236,7 +236,42 @@ var gameAreaHtmlJson = {
                     height: 360
                 }
             ]
-        }
+        }, {
+			element: "div",
+			style: {
+				display:"none"
+			},
+			className: "ggm2c_click_to_start",
+			gid:"clickToStartProject",
+			children: [
+				{
+                    element: "img",
+                    src: "static/player/play-button.png",
+					width: 100,
+					style: {
+						position:"absolute",
+						top:"50%",
+						left:"50%",
+						marginLeft:"-50px",
+						marginTop:"-50px"
+					}
+                },
+				{
+                    element: "span",
+                    src: "static/player/play-button.png",
+					textContent: "Please click to play.",
+					style: {
+						position:"absolute",
+						top:"50%",
+						left:"0",
+						width:"100%",
+						marginTop:"150px",
+						textAlign:"center",
+						fontSize: "30px"
+					}
+                }
+			]
+		}
     ]
 };
 

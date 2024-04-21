@@ -138,10 +138,10 @@ window.renderer = {
 		var sw = this.canvas.width/this.width;
 		var sh = this.canvas.height/this.height;
 		return {
-			x:sw*x,
-			y:sh*y,
-			w:sw*width,
-			h:sh*height,
+			x:Math.round(sw*x),
+			y:Math.round(sh*y),
+			w:Math.round(sw*width),
+			h:Math.round(sh*height),
 			scalewidth:sw,
 			scaleheight:sh
 		};
@@ -217,20 +217,20 @@ window.renderer = {
 				var textNameWidth = renderer.context.measureText(json.name).width/textscale;
 				this.context.globalAlpha = 1;
 				renderer.context.fillStyle = "#868e96";
-				renderer.fillRect(json.x-2,json.y-2,24+textNameWidth+textWidth,24);
+				renderer.fillRect(Math.round(json.x-2),Math.round(json.y-2),Math.round(24+textNameWidth+textWidth),Math.round(24));
 				renderer.context.fillStyle = "#ced4da";
-				renderer.fillRect(json.x,json.y,20+textNameWidth+textWidth,20);	
+				renderer.fillRect(Math.round(json.x),Math.round(json.y),Math.round(20+textNameWidth+textWidth),Math.round(20));	
 				renderer.context.fillStyle = "#ff8c00";
-				renderer.fillRect(json.x+textNameWidth+10,json.y+3,5+textWidth,15);
+				renderer.fillRect(Math.round(json.x+textNameWidth+10),Math.round(json.y+3),Math.round(5+textWidth),Math.round(15));
 				renderer.context.fillStyle = "white";
-				renderer.fillText(json.value, json.x+textNameWidth+10,json.y + 15);
+				renderer.fillText(json.value, Math.round(json.x+textNameWidth+12),Math.round(json.y + 16));
 				renderer.context.fillStyle = "black";
-				renderer.fillText(json.name, json.x + 6,json.y + 15);
+				renderer.fillText(json.name, Math.round(json.x + 6),Math.round(json.y + 15));
 				return {
-					width:74+textNameWidth+textWidth,
-					height:24,
-					x:json.x,
-					y:json.y
+					width:Math.round(74+textNameWidth+textWidth),
+					height:Math.round(24),
+					x:Math.round(json.x),
+					y:Math.round(json.y)
 				};
 			}
 		}catch(e){console.error(e);}
@@ -243,11 +243,11 @@ window.renderer = {
 	},
 	fillRect: function (x,y,w,h) {
 		var si = this.getScaleInfo(x,y,w,h);
-		this.context.fillRect(si.x,si.y,si.w,si.h);
+		this.context.fillRect(Math.round(si.x),Math.round(si.y),Math.round(si.w),Math.round(si.h));
 	},
 	fillText: function (txt,x,y) {
 		var si = this.getScaleInfo(x,y,0,0);
-		this.context.fillText(txt,si.x,si.y);
+		this.context.fillText(txt,Math.round(si.x),Math.round(si.y));
 	},
 	color:"#ffffff",
 	getColorEffect: function (img,r,g,b) {
