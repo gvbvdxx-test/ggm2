@@ -44,9 +44,21 @@ var lastPos = {
 };
 window.currentMode = 'brush';
 paintCVS.style.cursor = "crosshair";
+function fixSizeValues (value) {
+	var number = Number(value.value);
+	if (number < 1)  {
+		number = 1;
+		value.value = number;
+	}
+	if (isNaN(number)) {
+		number = 1;
+		value.value = 1;
+	}
+	return number;
+}
 width.oninput = function () {
     var dat = ctx.getImageData(0, 0, paintCVS.width, paintCVS.height);
-    paintCVS.width = Number(width.value);
+    paintCVS.width = fixSizeValues(width);
     updateZoom();
     changeMode("brush");
     ctx.putImageData(dat, 0, 0);
@@ -54,7 +66,7 @@ width.oninput = function () {
 };
 height.oninput = function () {
     var dat = ctx.getImageData(0, 0, paintCVS.width, paintCVS.height);
-    paintCVS.height = Number(height.value);
+    paintCVS.height = fixSizeValues(height);
     updateZoom();
     changeMode("brush");
     //movePos2 = {action:-1};
