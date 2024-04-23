@@ -383,7 +383,7 @@ var paintDialogBox = {
                     element: "div",
                     style: {
                         width: "100%",
-                        height: "calc(100% - 100px)",
+                        height: "calc(100% - 80px)",
                         position: "relative",
                         top: "30px"
                     },
@@ -393,7 +393,7 @@ var paintDialogBox = {
 					style: {
 						width:"100%",
 						textAlign:"center",
-						marginTop: "40px"
+						marginTop: "35px"
 					},
                     children: [{
                             element: "button",
