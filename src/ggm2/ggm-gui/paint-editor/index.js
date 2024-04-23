@@ -56,7 +56,7 @@ function fixSizeValues (value) {
 	}
 	return number;
 }
-width.oninput = function () {
+width.onchange = function () {
     var dat = ctx.getImageData(0, 0, paintCVS.width, paintCVS.height);
     paintCVS.width = fixSizeValues(width);
     updateZoom();
@@ -64,7 +64,7 @@ width.oninput = function () {
     ctx.putImageData(dat, 0, 0);
     //movePos2 = {action:-1};
 };
-height.oninput = function () {
+height.onchange = function () {
     var dat = ctx.getImageData(0, 0, paintCVS.width, paintCVS.height);
     paintCVS.height = fixSizeValues(height);
     updateZoom();

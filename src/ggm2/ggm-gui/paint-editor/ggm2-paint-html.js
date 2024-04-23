@@ -337,6 +337,9 @@ module.exports = {
 							min:1,
 							max:Infinity,
 							value:600,
+							style: {
+								textAlign:"center"
+							},
 							className:"ggm-paint-paint-input-1"
 						},
 						{element:"br"},
@@ -351,6 +354,9 @@ module.exports = {
 							min:1,
 							max:Infinity,
 							value:600,
+							style: {
+								textAlign:"center"
+							},
 							className:"ggm-paint-paint-input-1"
 						},
 						{element:"br"},{element:"br"},
