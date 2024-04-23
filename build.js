@@ -3,6 +3,8 @@ var fs = require("fs");
 var path = require("path");
 var FS = fs;
 var filepathlist = [];
+var UglifyJS = require("uglify-js");
+
 function ThroughDirectory(directory) {
     fs.readdirSync(directory).forEach(File => {
         const absolute = path.join(directory, File);
@@ -15,5 +17,5 @@ function ThroughDirectory(directory) {
 }
 filepathlist = [];
 ThroughDirectory("./src/");
-var files = gvbvdxxPack.compile(filepathlist,false);
+var files = gvbvdxxPack.compile(filepathlist,false,[],false);
 gvbvdxxPack.build(files, fs.readFileSync("template/index-no-ws.html"), 6546);

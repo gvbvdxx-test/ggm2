@@ -5,12 +5,13 @@
   "main": "index.js",
   "scripts": {
     "start": "node auto-dev.js",
-    "build": "node build.js"
+    "build": "node build.js && node uglify-build.js"
   },
   "author": "Gvbvdxx",
   "license": "MIT",
   "dependencies": {
-    "gvbvdxx-pack-2": "^1.5.0",
+    "gvbvdxx-pack-2": "git+https://github.com/gvbvdxx/gvbvdxx-pack-2.git",
+    "uglify-js": "^3.17.4",
     "ws": "^8.14.2"
   }
 }
