@@ -371,7 +371,7 @@ var paintDialogBox = {
                             element: "center",
                             children: [{
                                     element: "b",
-                                    textContent: "Create A Image",
+                                    textContent: "Image Editor",
                                     style: {
                                         marginLeft: "4px"
                                     }
