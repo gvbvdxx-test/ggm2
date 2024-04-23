@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node auto-dev.js",
-    "build": "node build.js && node uglify-build.js"
+    "build": "node build.js"
   },
   "author": "Gvbvdxx",
   "license": "MIT",
