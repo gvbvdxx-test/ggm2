@@ -132,6 +132,7 @@ gui.loadScript("scalefix.js");
 gui.loadScript("cloud-runtime.js");
 window.loadDefaultGame = loadDefaultGame;
 gui.loadScript("blocks/index.js");
+gui.loadScript("paint-editor/index.js");
 gui.loadScript("left-tabs.js");
 
 gui.loadScript("fullscreen-handler.js");

@@ -6,6 +6,7 @@ var console = require("log");
 
 
 var resoureupload = elements.getGPId('resourceupload');
+var createImageResource = elements.getGPId('createImageButton');
 var files = elements.getGPId('files');
 window.fileResources = [];
 window.fileResourcesArray = [];
@@ -23,6 +24,8 @@ function createElmPreview(data, name, type) {
 	var out = {};
 	
 	if (type == "image") {
+		out.gid = "resources_image_id_temp";
+		
 		out.element = "img";
 		
 		out.src = data;
@@ -140,7 +143,58 @@ function renameFileTo (data, oldName, type, newName) {
 	addFileToData(data, newName, type);
 }
 
-window.readFileAsResource = function readFileAsResource(data, name, type) {
+function waitForImage(src) {
+	return new Promise((resolve,reject) => {
+		var img = document.createElement("img");
+		img.onload = function () {
+			resolve(img);
+		};
+		img.onerror = function () {
+			reject(img);
+		};
+		img.src = src;
+	});
+}
+
+var paintDialog = elements.getGPId("paintDialogContainer");
+var paintFileName = elements.getGPId("ggm-paint-filename");
+var paintDialogButtonSave = elements.getGPId("paintDialogButtonSave");
+var paintDialogButtonCancel = elements.getGPId("paintDialogButtonCancel");
+window.ggm2PaintInputEnabled = false;
+
+function editImageDialog (name,loadImage) {
+	return new Promise(async (accept,reject) => {
+		gui.paintEditor.resetEverything();
+		var img = null;
+		if (loadImage) {
+			var img = await waitForImage(loadImage);
+			await gui.paintEditor.loadImage(img);
+		}
+		paintFileName.value = name;
+		
+		paintDialog.hidden = false;
+		window.ggm2PaintInputEnabled = true;
+		
+		paintDialogButtonSave.onclick = function () {
+			paintDialog.hidden = true;
+			window.ggm2PaintInputEnabled = false;
+			accept({
+				accepted: true,
+				name:paintFileName.value,
+				data:gui.paintEditor.getImage('image/png')
+			});
+		};
+		paintDialogButtonCancel.onclick = function () {
+			paintDialog.hidden = true;
+			window.ggm2PaintInputEnabled = false;
+			accept({
+				accepted: false
+			});
+		};
+	});
+}
+
+window.readFileAsResource = function readFileAsResource(dataURL, name, type) {
 	if (window.fileResources[name]) {
 		console.log("File \""+name+"\" already exists!");
 		Blockly.alert("File \""+name+"\" already exists!");
@@ -150,6 +204,8 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 			Blockly.alert("File \""+name+"\" does not have a valid format!");
 			return;
 		}
+		
+		var data = dataURL;
 		
 		addFileToData(data, name, type);
 		
@@ -175,6 +231,11 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 				gid:"tmp-fileExportButton",
 				textContent:"Export",
 				className:"file_buttonBlue",
+			},{
+				element:"button",
+				gid:"tmp-fileEditButton",
+				textContent:"Edit",
+				className:"file_buttonBlue",
 			},
 			createElmPreview(data, name, type),
 			{element:"br"}
@@ -188,6 +249,8 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 		
 		var deleteButton = elements.getGPId("tmp-fileDeleteButton");
 		var exportButton = elements.getGPId("tmp-fileExportButton");
+		var editButton = elements.getGPId("tmp-fileEditButton");
+		var imageElement = elements.getGPId("resources_image_id_temp");
 		
 		function deleteFile () {
 			removeFileFromData(updatedName);
@@ -208,22 +271,36 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 		}
 		exportButton.addEventListener("click", exportFile);
 		
-		function updateName(ignoreDialog) {
-			if (input.value.length < 1) {
+		function updateName(newValue,ignoreDialog,forceOverwrite) {
+			if (newValue.length < 1) {
 				input.value = updatedName;
 				return;
 			}
-			if (window.fileResources[input.value]) {
-				if (!ignoreDialog) {
-					console.log("File \""+input.value+"\" already exists!");
-					Blockly.alert("File \""+input.value+"\" already exists!");
+			if (!forceOverwrite) {
+				if (window.fileResources[newValue]) {
+					if (!ignoreDialog) {
+						console.log("File \""+newValue+"\" already exists!");
+						Blockly.alert("File \""+newValue+"\" already exists!");
+					}
+					
+					input.value = updatedName;
+					return;
 				}
-				
-				input.value = updatedName;
-				return;
+			} else {
+				if (updatedName !== newValue) {
+					if (window.fileResources[newValue]) {
+						if (!ignoreDialog) {
+							console.log("File \""+newValue+"\" already exists!");
+							Blockly.alert("File \""+newValue+"\" already exists!");
+						}
+						
+						input.value = updatedName;
+						return;
+					}
+				}
 			}
 			
-			var nName = input.value;
+			var nName = newValue;
 			
 			renameFileTo(data, updatedName, type, nName);
 			
@@ -241,15 +318,29 @@ window.readFileAsResource = function readFileAsResource(data, name, type) {
 				
 				d.remove();
 				
-				updateName(true);
+				updateName(input.value,true);
 				
 				event.preventDefault();
 			}
 		});
 		
 		input.addEventListener("change", () => {
-			updateName();
+			updateName(input.value);
 		});
+		
+		async function editFile () {
+			if (type.startsWith("image")) {
+				var info = await editImageDialog(updatedName,data);
+				if (info.accepted) {
+					imageElement.src = info.data;
+					data = info.data;
+					updateName(info.name,false,true);
+				}
+			} else {
+				gui.dialogs.alert("Sorry, this file can not be directly edited yet.", () => {});
+			}
+		}
+		editButton.addEventListener("click", editFile);
 		
 		files.appendChild(div);
 	}
@@ -272,4 +363,11 @@ resoureupload.onchange = function () {
             }
         }
     }
+};
+
+createImageResource.onclick = async function () {
+	var info = await editImageDialog("image");
+	if (info.accepted) {
+		readFileAsResource(info.data, info.name, 'image');
+	}
 };

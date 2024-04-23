@@ -1,4 +1,9 @@
+var ggm2path = require("src/paths.js");
 var elements = require("elements");
+function doScriptAdd(s) {
+    return require("src/" + ggm2path + "/" + s);
+}
+var paintEditorHTML = doScriptAdd("ggm-gui/paint-editor/ggm2-paint-html.js");
 
 //project details:
 
@@ -156,11 +161,10 @@ var mainMenuItems = [{
         gid: "details",
         textContent: "Details",
         className: "buttonBlue menuButton"
-    },
-	{
-		element:"div", //Allows GGM2 Community to use ggm2 v1.5
-		gid:"ggm2c"
-	}
+    }, {
+        element: "div", //Allows GGM2 Community to use ggm2 v1.5
+        gid: "ggm2c"
+    }
 ];
 
 //game area HTML:
@@ -223,9 +227,9 @@ var gameAreaHtmlJson = {
             ]
         }, {
             element: "center",
-			style:{
-				height:"360px"
-			},
+            style: {
+                height: "360px"
+            },
             children: [{
                     element: "canvas",
                     gid: "gameScreen",
@@ -237,41 +241,39 @@ var gameAreaHtmlJson = {
                 }
             ]
         }, {
-			element: "div",
-			style: {
-				display:"none"
-			},
-			className: "ggm2c_click_to_start",
-			gid:"clickToStartProject",
-			children: [
-				{
+            element: "div",
+            style: {
+                display: "none"
+            },
+            className: "ggm2c_click_to_start",
+            gid: "clickToStartProject",
+            children: [{
                     element: "img",
                     src: "static/player/play-button.png",
-					width: 100,
-					style: {
-						position:"absolute",
-						top:"50%",
-						left:"50%",
-						marginLeft:"-50px",
-						marginTop:"-50px"
-					}
-                },
-				{
+                    width: 100,
+                    style: {
+                        position: "absolute",
+                        top: "50%",
+                        left: "50%",
+                        marginLeft: "-50px",
+                        marginTop: "-50px"
+                    }
+                }, {
                     element: "span",
                     src: "static/player/play-button.png",
-					textContent: "Please click to play.",
-					style: {
-						position:"absolute",
-						top:"50%",
-						left:"0",
-						width:"100%",
-						marginTop:"150px",
-						textAlign:"center",
-						fontSize: "30px"
-					}
+                    textContent: "Please click to play.",
+                    style: {
+                        position: "absolute",
+                        top: "50%",
+                        left: "0",
+                        width: "100%",
+                        marginTop: "150px",
+                        textAlign: "center",
+                        fontSize: "30px"
+                    }
                 }
-			]
-		}
+            ]
+        }
     ]
 };
 
@@ -335,6 +337,75 @@ var dialogBox = {
                         }, {
                             element: "button",
                             gid: "dialogButtonCancel",
+                            className: "buttonBlue",
+                            style: {
+                                width: "60px"
+                            },
+                            textContent: "Cancel"
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+
+//Paint dialog HTML:
+
+var paintDialogBox = {
+    element: "div",
+    hidden: "true",
+    gid: "paintDialogContainer",
+    children: [{
+            element: "div",
+            className: "dialog_background",
+            gid: "paintDialogBackground"
+        }, {
+            element: "div",
+            className: "paint_dialog_box",
+            gid: "paintDialogBox",
+            children: [{
+                    element: "div",
+                    className: "paint_dialog_box_top",
+                    children: [{
+                            element: "center",
+                            children: [{
+                                    element: "b",
+                                    textContent: "Create A Image",
+                                    style: {
+                                        marginLeft: "4px"
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }, {
+                    element: "div",
+                    style: {
+                        width: "100%",
+                        height: "calc(100% - 100px)",
+                        position: "relative",
+                        top: "30px"
+                    },
+                    children: [paintEditorHTML]
+                }, {
+                    element: "div",
+					style: {
+						width:"100%",
+						textAlign:"center",
+						marginTop: "40px"
+					},
+                    children: [{
+                            element: "button",
+                            gid: "paintDialogButtonSave",
+                            className: "buttonBlue",
+                            style: {
+                                width: "60px"
+                            },
+                            textContent: "Save"
+                        }, {
+                            element: "button",
+                            gid: "paintDialogButtonCancel",
                             className: "buttonBlue",
                             style: {
                                 width: "60px"
@@ -444,6 +515,12 @@ var leftPane = {
                     className: "buttonBlue",
                     textContent: "Add Asset",
                     gid: "addAssetButton"
+                }, {
+                    element: "button",
+                    type: "file",
+                    className: "buttonBlue",
+                    textContent: "Create Image",
+                    gid: "createImageButton"
                 }, {
                     element: "div",
                     className: "gid_files",
@@ -590,7 +667,8 @@ var html = elements.createElementsFromJSON([
                 accept: ".ggm2g"
             },
             /////////////////////////////////////////////
-            //Dialog Box
+            //Dialog Boxes
+            paintDialogBox,
             dialogBox,
             /////////////////////////////////////////////
             //Project Details

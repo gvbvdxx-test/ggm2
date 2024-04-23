@@ -42,23 +42,18 @@ window.gui.dialogs = {
 
         dialogOptions.buttons.ok.onclick = function () {
             try {
-                app.hidden = false;
-                try {
-                    callback();
-                } catch (e) {}
-                dialogBackground.style.display = "none";
-                dialogBox.style.display = "none";
+                callback();
             } catch (e) {}
+            dialogBackground.style.display = "none";
+            dialogBox.style.display = "none";
         };
 
         dialogOptions.buttons.cancel.onclick = function () {
             try {
-                try {
-                    callback();
-                } catch (e) {}
-                dialogBackground.style.display = "none";
-                dialogBox.style.display = "none";
+                callback();
             } catch (e) {}
+            dialogBackground.style.display = "none";
+            dialogBox.style.display = "none";
         };
     }),
     confirm: (function (message, callback) {
@@ -72,23 +67,18 @@ window.gui.dialogs = {
 
         dialogOptions.buttons.ok.onclick = function () {
             try {
-                app.hidden = false;
-                try {
-                    callback(true);
-                } catch (e) {}
-                dialogBackground.style.display = "none";
-                dialogBox.style.display = "none";
+                callback(true);
             } catch (e) {}
+            dialogBackground.style.display = "none";
+            dialogBox.style.display = "none";
         };
 
         dialogOptions.buttons.cancel.onclick = function () {
             try {
-                try {
-                    callback(false);
-                } catch (e) {}
-                dialogBackground.style.display = "none";
-                dialogBox.style.display = "none";
+                callback(false);
             } catch (e) {}
+            dialogBackground.style.display = "none";
+            dialogBox.style.display = "none";
         };
     }),
     prompt: (function (message, defaultValue, callback) {
