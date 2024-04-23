@@ -207,10 +207,10 @@ body {
 	color:black;
 }
 .paint_dialog_box {
-	width:calc(100vw - 150px);
-	height:calc(100vh - 150px);
-	margin-top:calc(calc(100vh - 150px) / -2);
-	margin-left:calc(calc(100vw - 150px) / -2);
+	width:calc(100vw - 100px);
+	height:calc(100vh - 100px);
+	margin-top:calc(calc(100vh - 100px) / -2);
+	margin-left:calc(calc(100vw - 100px) / -2);
 	background-color:white;
 	position:fixed;
 	top:50%;
@@ -233,14 +233,14 @@ body {
 	color:white;
 }
 .paint_dialog_box_top {
-	width:calc(100vw - 150px);
+	width:calc(100vw - 100px);
 	height:30px;
 	background-color:#339af0;
 	position:fixed;
 	top:50%;
 	left:50%;
-	margin-top:calc(calc(100vh - 150px) / -2);
-	margin-left:calc(calc(100vw - 150px) / -2);
+	margin-top:calc(calc(100vh - 100px) / -2);
+	margin-left:calc(calc(100vw - 100px) / -2);
 	border-radius:6px;
 	border-bottom-left-radius:0px;
 	border-bottom-right-radius:0px;
