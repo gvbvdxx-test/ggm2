@@ -922,6 +922,7 @@ window.gui.paintEditor = {
         width.value = 600;
         height.value = 360;
 		zoom.value = 100;
+		thickness.value = 1;
 		updateZoom(); //Because we updated width and height values, we must also update the zoom to fit canvas size.
 		changeMode("brush");
 	}
