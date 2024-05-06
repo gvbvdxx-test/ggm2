@@ -271,11 +271,13 @@ window.readFileAsResource = function readFileAsResource(dataURL, name, type) {
 		}
 		exportButton.addEventListener("click", exportFile);
 		
-		function updateName(newValue,ignoreDialog,forceOverwrite) {
+		function updateName(newValue2,ignoreDialog,forceOverwrite) {
+			var newValue = newValue2.replaceAll("\\","").replaceAll("/","");
 			if (newValue.length < 1) {
 				input.value = updatedName;
 				return;
 			}
+			
 			if (!forceOverwrite) {
 				if (window.fileResources[newValue]) {
 					if (!ignoreDialog) {
@@ -368,6 +370,7 @@ resoureupload.onchange = function () {
 createImageResource.onclick = async function () {
 	var info = await editImageDialog("image");
 	if (info.accepted) {
-		readFileAsResource(info.data, info.name, 'image');
+		var val = info.name.replaceAll("\\","").replaceAll("/","");
+		readFileAsResource(info.data, val, 'image');
 	}
 };
