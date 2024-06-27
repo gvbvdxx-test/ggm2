@@ -19,6 +19,10 @@ class GGM2Sprite {
 		this.ghost = 0;
 		//every time it gets clicked, all the functions in this array get called.
 		this.clicked = [];
+		//local variables.
+		this.localvars = {};
+		//is a sprite.
+		this.isSprite = true;
 	}
 }
 module.exports = GGM2Sprite;

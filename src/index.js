@@ -12,5 +12,16 @@ window.useBlocklyBlocks = false; //change this to true to have more blocks (from
 window.useConfirmDialog = true; //asks the user if they want to save their changes (if true)
 
 //this here loads everything.
+var usevm = require("src/usevm.js");
 var ggm2path = require("src/paths.js");
-require("src/"+ggm2path+"/ggm-gui/main.js");
+if (usevm) {
+	function doScriptAdd(s) {
+		return require("src/" + ggm2path + "/" + s);
+	}
+	doScriptAdd("ggm-vm/index.js");
+	doScriptAdd("ggm-vm/renderer.js");
+	doScriptAdd("ggm-vm/audio.js");
+	doScriptAdd("ggm-vm/better-audio-ctx.js");
+} else {
+	require("src/"+ggm2path+"/ggm-gui/main.js");
+}

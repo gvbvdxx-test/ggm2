@@ -1,6 +1,8 @@
+var dialogs = gui.dialogs;
 var console = require("log");
 var elements = require("elements");
-var paintCVS = elements.getGPId("ggm-paint-paint-canvas");
+var othercvs = elements.getGPId("ggm-paint-paint-canvas");
+var paintCVS = document.createElement("canvas");
 var ctx = paintCVS.getContext("2d");
 var zoom = elements.getGPId("ggm-paint-zoom");
 var thickness = elements.getGPId("ggm-paint-thickness");
@@ -42,7 +44,7 @@ var lastPos = {
     x: 0,
     y: 0
 };
-window.currentMode = 'brush';
+var currentMode = 'brush';
 paintCVS.style.cursor = "crosshair";
 function fixSizeValues (value) {
 	var number = Number(value.value);
@@ -87,7 +89,7 @@ function changeMode(m) {
 var down = false;
 newButton.onclick = function () {
     window.ggm2PaintInputEnabled = false;
-    gui.dialogs.confirm("Reset image?", function (value) {
+    dialogs.confirm("Reset image?", function (value) {
         window.ggm2PaintInputEnabled = true;
         if (value) {
             paintCVS.width = 600;
@@ -101,7 +103,7 @@ newButton.onclick = function () {
 };
 
 function getMousePos(canvas, evt, scale) {
-    var rect = canvas.getBoundingClientRect();
+    var rect = othercvs.getBoundingClientRect();
     return {
         x: Math.round(evt.clientX - rect.left),
         y: Math.round(evt.clientY - rect.top)
@@ -109,7 +111,7 @@ function getMousePos(canvas, evt, scale) {
 }
 
 function getTouchPos(canvas, evt, scale) {
-    var rect = canvas.getBoundingClientRect();
+    var rect = othercvs.getBoundingClientRect();
     return {
         x: Math.round(evt.touches[0].clientX - rect.left),
         y: Math.round(evt.touches[0].clientY - rect.top)
@@ -338,7 +340,7 @@ function mouseDown() {
     down = true;
     mouseDownFunctions()
 }
-paintCVS.onmousedown = mouseDown;
+othercvs.onmousedown = mouseDown;
 
 function fixUndo() {
     var newUndo = [];
@@ -442,9 +444,7 @@ function fixWidthAndHeight(x, y, w, h, w2, h2) {
 
     outpos.width = Math.abs(w);
     outpos.height = Math.abs(h);
-
-    console.log(w2, h2);
-
+	
     return outpos;
 }
 
@@ -719,7 +719,7 @@ setInterval(() => {
 }, 1);
 erase.onclick = function () {
     window.ggm2PaintInputEnabled = false;
-    gui.dialogs.confirm("Erase image?", function (value) {
+    dialogs.confirm("Erase image?", function (value) {
         window.ggm2PaintInputEnabled = true;
         if (value) {
             ctx.clearRect(0, 0, paintCVS.width, paintCVS.height);
@@ -744,7 +744,6 @@ async function copyDataURL(dataURL) {
             })
         ];
         await navigator.clipboard.write(items);
-        console.log("Copied image.");
     }
 }
 window.addEventListener("paste", async function (e) {
@@ -809,7 +808,7 @@ document.addEventListener("keydown", (event) => {
         imgd.data.set(newdata);
         ctx.putImageData(imgd, 0, 0);
     }
-    if (window.ggm2PaintInputEnabled) {
+    if ((document.activeElement == document.body) && window.ggm2PaintInputEnabled) {
         if (event.key.toLowerCase() == "control") {
             controlHeld = true;
             event.preventDefault();
@@ -894,7 +893,7 @@ elements.getGPId("ggm-paint-mode-getcolor").onclick = function () {
     changeMode("get color");
 };
 
-window.gui.paintEditor = {
+window.paintEditor = {
     loadImage: function (image) {
         ctx.clearRect(0, 0, paintCVS.width, paintCVS.height);
         zoom.value = 100;
@@ -947,3 +946,27 @@ function draw(p) {
     p.map(x => ctx.lineTo(x[0], x[1]));
     ctx.stroke();
 }
+
+setInterval(() => {
+	var ctx = othercvs.getContext("2d");
+	othercvs.width = paintCVS.width;
+	othercvs.height = paintCVS.height;
+	othercvs.style.width = paintCVS.style.width;
+	othercvs.style.height = paintCVS.style.height;
+	ctx.clearRect(0,0,othercvs.width,othercvs.height);
+	ctx.drawImage(paintCVS,0,0,othercvs.width,othercvs.height);
+	ctx.save();
+    ctx.strokeStyle = color.value;
+    ctx.fillStyle = color.value;
+	othercvs.style.cursor = "crosshair";
+	if (currentMode == "brush") {
+		ctx.fillRect(Math.round(pos.x - (thickness.value / 2)), Math.round(pos.y - (thickness.value / 2)), Math.round(thickness.value), Math.round(thickness.value));
+	}
+	if (currentMode == "text") {
+        ctx.font = `${thickness.value}px arial`;
+        var t = textValue.value;
+        ctx.fillStyle = color.value;
+        ctx.fillText(t, (ctx.measureText(t).width / -2) + pos.x, (thickness.value / 4) + pos.y);
+    }
+	ctx.restore();
+},1000/60);

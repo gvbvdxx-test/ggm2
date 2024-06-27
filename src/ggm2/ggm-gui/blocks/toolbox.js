@@ -405,6 +405,26 @@ var toolboxXML = `
 			</block>
 			${blockSeparator}
 			<block type="gvbvdxx_game_sprites_setsize"></block>
+			${blockSeparator}
+			<block type="gvbvdxx_sprites_local_set">
+				<value name="name">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">my variable</field>
+					</shadow>
+				</value>
+				<value name="value">
+					<shadow type="gvbvdxx_operators_number">
+						<field name="NAME">10</field>
+					</shadow>
+				</value>
+			</block>
+			<block type="gvbvdxx_sprites_local_get">
+				<value name="name">
+					<shadow type="gvbvdxx_operators_text">
+						<field name="text">my variable</field>
+					</shadow>
+				</value>
+			</block>
 		</category>
 		<category colour="${BlockColors["game"]}" name="Events">
 			<block type="gvbvdxx_game_ontick"></block>
@@ -477,6 +497,7 @@ var toolboxXML = `
 			<block type="gvbvdxx_operators_and"></block>
 			<block type="gvbvdxx_operators_tonumber"></block>
 			<block type="gvbvdxx_operators_tostring"></block>
+			<block type="gvbvdxx_op_is"></block>
 		</category>
 		<category colour="${BlockColors["control"]}" name="Control">
 			<block type="gvbvdxx_control_if_then"></block>

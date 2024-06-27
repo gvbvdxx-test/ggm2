@@ -144,6 +144,12 @@ var mainMenuItems = [{
         title: "Load your project so it can be edited.",
         textContent: "Load",
         onclick: "load();"
+    },  {
+        element: "p",
+        className: "main_menu_item main_menu_item_p",
+        title: "Export the current game as a html file. This is still reversable, but is not easily reversable. Don't use this option for keeping personal secrets, it does not work well.",
+        textContent: "Export",
+        onclick: "gui.exportGame();"
     },
     menuBarSep, {
         element: "input",

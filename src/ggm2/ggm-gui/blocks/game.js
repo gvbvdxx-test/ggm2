@@ -1,6 +1,55 @@
 Blockly.defineBlocksWithJsonArray([
 //sprites
 {
+  "type": "gvbvdxx_sprites_local_set",
+  "message0": "Set local variable on sprite %1 %2 name: %3 value: %4",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "sprite",
+      "variable": "sprite"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "name"
+    },
+    {
+      "type": "input_value",
+      "name": "value"
+    }
+  ],
+  "previousStatement": null,
+  "nextStatement": null,
+  "colour": BlockColors["game"],
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
+  "type": "gvbvdxx_sprites_local_get",
+  "message0": "Get local variable on sprite %1 %2 name: %3",
+  "args0": [
+    {
+      "type": "field_variable",
+      "name": "sprite",
+      "variable": "sprite"
+    },
+    {
+      "type": "input_dummy"
+    },
+    {
+      "type": "input_value",
+      "name": "name"
+    }
+  ],
+  "output": null,
+  "colour": BlockColors["game"],
+  "tooltip": "",
+  "helpUrl": ""
+},
+{
   "type": "gvbvdxx_game_sprites_setsize",
   "message0": "set sprite %1 size to the size of the image",
   "args0": [
@@ -986,4 +1035,20 @@ Blockly.JavaScript['gvbvdxx_stop_everything'] = function(block) {
   // TODO: Assemble JavaScript into code variable.
   var code = 'vm.stop();try{return;}catch(e){};\n';
   return code;
+};
+Blockly.JavaScript['gvbvdxx_sprites_local_set'] = function(block) {
+  var variable_sprite = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('sprite'), Blockly.Variables.NAME_TYPE);
+  var value_name = Blockly.JavaScript.valueToCode(block, 'name', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_value = Blockly.JavaScript.valueToCode(block, 'value', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `${variable_sprite}.localvars[${value_name}] = ${value_value};`+"\n";
+  return code;
+};
+Blockly.JavaScript['gvbvdxx_sprites_local_get'] = function(block) {
+  var variable_sprite = Blockly.JavaScript.nameDB_.getName(block.getFieldValue('sprite'), Blockly.Variables.NAME_TYPE);
+  var value_name = Blockly.JavaScript.valueToCode(block, 'name', Blockly.JavaScript.ORDER_ATOMIC);
+  // TODO: Assemble JavaScript into code variable.
+  var code = `${variable_sprite}.localvars[${value_name}]`;
+  // TODO: Change ORDER_NONE to the correct strength.
+  return [code, Blockly.JavaScript.ORDER_NONE];
 };

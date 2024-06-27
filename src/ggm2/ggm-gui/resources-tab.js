@@ -164,11 +164,11 @@ window.ggm2PaintInputEnabled = false;
 
 function editImageDialog (name,loadImage) {
 	return new Promise(async (accept,reject) => {
-		gui.paintEditor.resetEverything();
+		paintEditor.resetEverything();
 		var img = null;
 		if (loadImage) {
 			var img = await waitForImage(loadImage);
-			await gui.paintEditor.loadImage(img);
+			await paintEditor.loadImage(img);
 		}
 		paintFileName.value = name;
 		
@@ -181,7 +181,7 @@ function editImageDialog (name,loadImage) {
 			accept({
 				accepted: true,
 				name:paintFileName.value,
-				data:gui.paintEditor.getImage('image/png')
+				data:paintEditor.getImage('image/png')
 			});
 		};
 		paintDialogButtonCancel.onclick = function () {

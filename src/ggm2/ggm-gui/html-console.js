@@ -27,7 +27,6 @@ function addToConsole(msg, preElm) {
 }
 
 vm.console.log = function (text) {
-    console.log("VM Console [LOG]: " + text);
     addToConsole(text, {
         element: "span",
         textContent: "[Project]: ",
@@ -38,7 +37,6 @@ vm.console.log = function (text) {
     });
 }
 vm.console.error = function (text) {
-    console.log("VM Console [ERROR]: " + text.toString());
     addToConsole(text.toString(), {
         element: "span",
         textContent: "[ERROR]: ",
