@@ -278,16 +278,20 @@ if (mail) {
 
 (async function () {
 	if (ggm2c.project.uri) {
-		
+        elements.getGPId("loadingscreen").hidden = false;
 		elements.getGPId("filesLoadedValue").hidden = false;
-		elements.getGPId("filesLoadedValue").innerHTML = "Loading project...";
-		
-		var projectURL = ggm2c.project.uri;
-		var request = await fetch(projectURL);
-		var arrayBuffer = await request.arrayBuffer();
-		
-		gui.importZip(arrayBuffer);
-		
+		elements.getGPId("filesLoadedValue").innerHTML = "Downloading project...";
+		try{
+			
+			var projectURL = ggm2c.project.uri;
+			var request = await fetch(projectURL);
+			var arrayBuffer = await request.arrayBuffer();
+			
+			gui.importZip(arrayBuffer);
+			
+		}catch (e) {
+			window.console.error(e);
+		}
 	}
 })();
 

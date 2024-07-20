@@ -144,6 +144,10 @@ gui.loadScript("discriptiontools/index.js");
 //GGM2 1.5 Desktop Stuff:
 gui.loadScript("desktop/index.js");
 
+//We should hide the loading screen here.
+
+var loadingScreen = elements.getGPId("loadingscreen");
+loadingScreen.hidden = true;
 
 //And of course, GGM2 Community support!
 

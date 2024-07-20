@@ -1,6 +1,6 @@
 if (window.ggm2c) {
 	//I wanted to put the "STOP!" warning here,
-	//but this will be accross the website so its just unessasary coding to put it here.
+	//but this will be around the website so its just unessasary coding to put it here.
 } else {
 	
 	console.log('%cGGM2',"color:#1864ab;font-size:80px;font-weight:bold;");
@@ -44,10 +44,6 @@ doScriptAdd("ggm-gui/theme.js");
 doScriptAdd("ggm-gui/index.js");
 doScriptAdd("ggm-gui/zip-export.js");
 doScriptAdd("ggm-gui/jszip.min.js");
-
-//hide the loading screen
-var loadingScreen = elements.getGPId("loadingscreen");
-loadingScreen.hidden = true;
 
 //make it so the user cannot select everything.
 doScriptAdd("ggm-gui/selection-fix.js");

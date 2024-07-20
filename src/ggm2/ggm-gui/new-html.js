@@ -627,7 +627,8 @@ var loadingScreen = {
 
 var html = elements.createElementsFromJSON([
             ///////////////////////////////////////
-            //Don't know what this is for.
+            //This was for the GGM2 Desktop (Old Version) of it, but its here.
+			//I don't feel like removing this, so it's just staying here.
             {
                 element: "div",
                 gid: "background",
@@ -650,19 +651,19 @@ var html = elements.createElementsFromJSON([
             //Loading Screen.
             loadingScreen,
             /////////////////////////////////////////////
-            //Main Menu
+            //Left Pane
+            leftPane,
+            /////////////////////////////////////////////
+            //Right Pane
+            rightPane,
+            /////////////////////////////////////////////
+			//Main Menu
             {
                 element: "div",
                 gid: "main_menu",
                 className: "gid_main_menu",
                 children: mainMenuItems
             },
-            /////////////////////////////////////////////
-            //Left Pane
-            leftPane,
-            /////////////////////////////////////////////
-            //Right Pane
-            rightPane,
             /////////////////////////////////////////////
             //Game file loader.
             {
